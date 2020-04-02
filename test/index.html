@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- app config -->
+  <meta class="sanyueApp" name="hideNav" content="0">
+  <meta class="sanyueApp" name="statusStyle" content="dark">
+  <meta class="sanyueApp" name="title" content="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈">
+  <meta class="sanyueApp" name="titleColor" content="#000000">
+  <meta class="sanyueApp" name="navBackgroundColor" content="#f1f1f1">
+  <meta class="sanyueApp" name="backgroundColor" content="#f1f1f1">
+  <meta class="sanyueApp" name="bounces" content="1">
+  <meta class="sanyueApp" name="version" content="1.0">
+  <!-- network config -->
+  <meta class="sanyueApp" name="networkTimeout" content="15">
+  <style>
+    * {
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    html {
+      background-color: #ffffff;
+      width: 100%;
+      height: 100%;
+      /* overflow: hidden; */
+      /* overflow-x: hidden; */
+    }
+
+    .nav {
+      width: 50%;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      background-color: aqua;
+    }
+
+    /* 
+    @media (prefers-color-scheme: dark) {
+
+      body,
+      html {
+        background-color: #000000;
+      }
+    } */
+  </style>
+  <script src="./native.js?dsds"></script>
+</head>
+
+<body>
+
+  <div style="height: 20px;background-color:#000000" id="statusBar"></div>
+  <iframe width="100%" height="200px" src="https://www.baidu.com"></iframe>
+  <div>hello world</div>
+  <div id='nav' class="nav">跳转</div>
+  <div id='restart' class="nav">重启</div>
+  <div id="userAgent"></div>
+  <div id="isInApp"></div>
+  <div id="device"></div>
+  <div id="version"></div>
+  <div style="margin-bottom: 10px;background-color:#f1f2f1" id='showActionSheet'>showActionSheet</div>
+  <h1>Pick</h1>
+  <img src="1.jpeg" />
+  <div style="margin: 30px;margin-bottom: 10px;" id="pickResult"></div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='normalPicker'>normalPick</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='multiPick'>multiPick</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='timePicker'>timePicker</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='datePicker'>datePicker</div>
+  <div style="margin: 30px;margin-bottom: 10px;" id="vibrateLong">vibrateLong</div>
+  <div style="margin: 30px;margin-bottom: 10px;" id="vibrateShort">vibrateShort</div>
+  <h1>ClipboardData</h1>
+  <div style="margin: 30px;margin-bottom: 10px;" id="setClipboardData">setClipboardData</div>
+  <div style="margin: 30px;margin-bottom: 10px;" id="getClipboardData">getClipboardData</div>
+  <div style="margin-bottom: 10px;background-color:#f1f2f1" id='toast'>toast</div>
+  <div style="margin-bottom: 10px;background-color:#f1f2f1" id='showLoad'>showLoad</div>
+  <div style="margin-bottom: 10px;background-color:#f1f2f1" id='showModal'>showModal</div>
+  <div style="margin-bottom: 10px;background-color:#f1f2f1" id='setStatusStyle'>setStatusStyle</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='setNavBar'>setNavBar</div>
+  <h1>网络请求</h1>
+  <div style="margin: 30px;margin-bottom: 10px;" id="result"></div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='get'>GET</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='stopGet'>Stop GET</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='post'>POST</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='delete'>DELETE</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='put'>PUT</div>
+  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='patch'>PATCH</div>
+  <a style="margin-left: 20px;" href="#12">1233</a>
+  <a style="margin-left: 20px;" href="https://www.baidu.com">1233</a>
+  <img style="width: 100%;" src='http://images.xiaozhuanlan.com/photo/2018/f7d0fe8dfa55b83af98bbf66bfbcbefa.png'>
+</body>
+<script>
+  // test 
+  var userAgent = navigator.userAgent
+  //document.getElementById('userAgent').innerHTML = userAgent
+  document.getElementById('isInApp').innerHTML = SanYueWebApp.isInApp
+  document.getElementById('device').innerHTML = SanYueWebApp.device
+  document.getElementById('version').innerHTML = SanYueWebApp.version
+  document.getElementById('statusBar').onclick = function () {
+    window.location.href = window.location.href + '#123'
+  }
+  SanYueWebApp.getAppInfo(function (res) {
+    console.log(res)
+    console.log(document.body.clientHeight)
+    //document.getElementById('getAppInfo').innerHTML = JSON.stringify(res)
+    document.getElementById('statusBar').style.width = res.screenWidth + 'px'
+    document.getElementById('statusBar').style.height = (Number(res.statusBarHeight)) + 'px'
+  }, function (err) {
+    //document.getElementById('getAppInfo').innerHTML = err
+  })
+  document.getElementById('toast').onclick = function () {
+    SanYueWebApp.showToast({
+      content: "toast 提示",
+      time: 3,
+      mask: true
+    })
+  }
+  document.getElementById('showLoad').onclick = function () {
+    SanYueWebApp.showLoad({
+      content: "加载中...",
+      mask: false
+    })
+    // setTimeout(function () {
+    //   SanYueWebApp.hiddenLoad()
+    // }, 1000);
+  }
+  var flag = false
+  document.getElementById('setStatusStyle').onclick = function () {
+    if (!flag) {
+      SanYueWebApp.setStatusStyle({
+        style: 'dark'
+      })
+      document.getElementById('statusBar').style.backgroundColor = "#cccccc"
+      flag = true;
+    }
+    else {
+      SanYueWebApp.setStatusStyle({
+        style: 'light'
+      })
+      document.getElementById('statusBar').style.backgroundColor = "#000000"
+      flag = false;
+    }
+  }
+  document.getElementById('showModal').onclick = function () {
+    SanYueWebApp.showModal({
+      title:"长标题长标题长标题长标题长标题长标题",
+      content: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈",
+      showCancel: true,
+      backGroundCancel: true,
+      // senseMode:'dark',
+      cancelText: "取消",
+      confirmText: "确认",
+    }, function (res) {
+      console.log(res)
+    }, function (err) {
+
+    })
+  }
+  document.getElementById('showActionSheet').onclick = function () {
+    try {
+      SanYueWebApp.showActionSheet({
+        backGroundCancel: true,
+        // senseMode:'dark',
+        // title:"这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。",
+        itemList: ['第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个', '第二个', '第三个', '第四个', '第五个', '第六个']
+      }, function (res) {
+        console.log(res)
+      }, function (err) {
+
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  var flag1 = false
+  document.getElementById('setNavBar').onclick = function () {
+    if (flag1) {
+      SanYueWebApp.setNavBar({
+        statusStyle: 'dark',
+        navBackgroundColor: '#f1f1f1',
+        title: '浅色导航栏',
+        titleColor: '#000000'
+      })
+      flag1 = false;
+    }
+    else {
+      SanYueWebApp.setNavBar({
+        statusStyle: 'light',
+        navBackgroundColor: '#000000',
+        title: '深色导航栏',
+        titleColor: '#f1f1f1'
+      })
+      flag1 = true;
+    }
+  }
+  var selectIndex = 0
+  document.getElementById('normalPicker').onclick = function () {
+    var arr = ['第一个', '第二个', '第三个', '第四个', '第五个', '第六个', '第七个', '第八个', '第九个', '第十个', '第十一个', '第十一个', '第十一个']
+    SanYueWebApp.showPick({
+      mode: 'normal',
+      listenChange: true,
+      list: arr,
+      value: selectIndex,
+    }, function (res) {
+      var index = Number(res.result)
+      if (index === -1) {
+        document.getElementById('pickResult').innerHTML = '没有选择'
+        selectIndex = 0
+      }
+      else if (index === -2) {
+        document.getElementById('pickResult').innerHTML = 'mask 取消'
+        selectIndex = 0
+      }
+      else {
+        selectIndex = index
+        document.getElementById('pickResult').innerHTML = arr[index]
+      }
+      console.log(res)
+    }, function (err) {
+      console.log(err)
+    })
+  }
+  document.getElementById('multiPick').onclick = function () {
+    var arr = [
+      {
+        name: '1',
+        children: [
+          {
+            name: '1-1', children: [
+              { name: '1-1-1', children: [] },
+              { name: '1-1-2', children: [] },
+              { name: '1-1-3', children: [] },
+            ]
+          },
+          {
+            name: '1-2', children: [
+              { name: '1-2-1', children: [] },
+              { name: '1-2-2', children: [] },
+              { name: '1-2-3', children: [] },
+            ]
+          },
+          {
+            name: '1-3', children: [
+              { name: '3-2-1', children: [] },
+              { name: '3-2-2', children: [] },
+              { name: '3-2-3', children: [] },
+            ]
+          },
+        ]
+      },
+      {
+        name: '2',
+        children: [
+          { name: '2-1', children: [] },
+          { name: '2-2', children: [] },
+          { name: '2-3', children: [] },
+        ]
+      },
+      {
+        name: '3',
+        children: [
+          { name: '3-1', children: [] },
+          { name: '3-2', children: [] },
+          { name: '3-3', children: [] },
+        ]
+      },
+      {
+        name: '4',
+        children: [
+          { name: '4-1', children: [] },
+          { name: '4-2', children: [] },
+          { name: '4-3', children: [] },
+        ]
+      },
+    ]
+    SanYueWebApp.showPick({
+      mode: 'multi',
+      listenChange: true,
+      list: arr,
+      senseMode: 'dark',
+      value: [0, 0, 0],
+    }, function (res) {
+      var index = Number(res.result)
+      if (index === -1) {
+        document.getElementById('pickResult').innerHTML = '没有选择'
+        selectIndex = 0
+      }
+      else if (index === -2) {
+        document.getElementById('pickResult').innerHTML = 'mask 取消'
+        selectIndex = 0
+      }
+      else {
+        selectIndex = index
+        document.getElementById('pickResult').innerHTML = JSON.stringify(res.result)
+      }
+      console.log(res)
+    }, function (err) {
+      console.log(err)
+    })
+  }
+  document.getElementById('timePicker').onclick = function () {
+    SanYueWebApp.showPick({
+      mode: 'time',
+      listenChange: true,
+      start: "09:00",
+      end: '10:00',
+      value: "09:11",
+    }, function (res) {
+      document.getElementById('pickResult').innerHTML = JSON.stringify(res)
+    }, function (err) {
+      document.getElementById('pickResult').innerHTML = JSON.stringify(err)
+    })
+  }
+  document.getElementById('datePicker').onclick = function () {
+    SanYueWebApp.showPick({
+      mode: 'date',
+      listenChange: true,
+      start: "2012-01-01",
+      end: '2012-12-31',
+      value: "2012-01-01",
+    }, function (res) {
+      document.getElementById('pickResult').innerHTML = JSON.stringify(res)
+    }, function (err) {
+      document.getElementById('pickResult').innerHTML = JSON.stringify(err)
+    })
+  }
+  var fecthTask
+  document.getElementById('get').onclick = function () {
+    SanYueWebApp.showLoad({
+      content: "get",
+      mask: false
+    })
+    fecthTask = SanYueWebApp.fetch({
+      url: 'http://192.168.50.197:3000/api',
+      data: { "name": "哈哈" },
+      method: 'GET',
+    }, function (res) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(res)
+    }, function (err) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(err)
+    })
+    console.log(fecthTask)
+  }
+  document.getElementById('stopGet').onclick = function () {
+    try {
+      fecthTask()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  document.getElementById('post').onclick = function () {
+    SanYueWebApp.showLoad({
+      content: "post",
+      mask: true
+    })
+    SanYueWebApp.fetch({
+      url: 'http://172.20.0.95:3000/api',
+      data: { "name": "哈哈" },
+      method: 'POST',
+    }, function (res) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(res)
+    }, function (err) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(err)
+    })
+  }
+  document.getElementById('put').onclick = function () {
+    SanYueWebApp.showLoad({
+      content: "put",
+      mask: true
+    })
+    SanYueWebApp.fetch({
+      url: 'http://192.168.50.197:3000/api',
+      data: { "name": "哈哈" },
+      method: 'PUT',
+    }, function (res) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(res)
+    }, function (err) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(err)
+    })
+  }
+  document.getElementById('patch').onclick = function () {
+    SanYueWebApp.showLoad({
+      content: "patch",
+      mask: true
+    })
+    SanYueWebApp.fetch({
+      url: 'http://192.168.50.197:3000/api',
+      data: { "name": "哈哈" },
+      method: 'PATCH',
+    }, function (res) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(res)
+    }, function (err) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(err)
+    })
+  }
+  document.getElementById('delete').onclick = function () {
+    SanYueWebApp.showLoad({
+      content: "delete",
+      mask: true
+    })
+    SanYueWebApp.fetch({
+      url: 'http://192.168.50.197:3000/api',
+      data: { "name": "哈哈" },
+      method: 'DELETE',
+    }, function (res) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(res)
+    }, function (err) {
+      SanYueWebApp.hiddenLoad()
+      document.getElementById('result').innerHTML = JSON.stringify(err)
+    })
+  }
+  document.getElementById('setClipboardData').onclick = function () {
+    SanYueWebApp.setClipboardData({
+      text: '哈哈哈',
+    }, function (res) {
+      SanYueWebApp.showToast({
+        content: JSON.stringify(res)
+      })
+    },
+      function (err) {
+        SanYueWebApp.showToast({
+          content: JSON.stringify(err)
+        })
+      })
+  }
+  document.getElementById('getClipboardData').onclick = function () {
+    SanYueWebApp.getClipboardData(
+      function (res) {
+        SanYueWebApp.showToast({
+          content: JSON.stringify(res)
+        })
+      },
+      function (err) {
+        SanYueWebApp.showToast({
+          content: JSON.stringify(err)
+        })
+      })
+  }
+  //vibrateLong
+  document.getElementById('vibrateLong').onclick = function () {
+    SanYueWebApp.vibrateLong()
+  }
+  document.getElementById('vibrateShort').onclick = function () {
+    SanYueWebApp.vibrateShort()
+  }
+  //
+  document.getElementById('restart').onclick = function () {
+    SanYueWebApp.showModal({
+      title: "警告",
+      content: "即将重启 web App",
+      showCancel: false,
+      backGroundCancel: false,
+    }, function (res) {
+      SanYueWebApp.restart()
+    }, function (err) {
+
+    })
+
+  }
+
+  SanYueWebApp.sub('ViewInit', function (res) {
+    console.log('ViewInit')
+    console.log(res)
+    const image = new Image()
+    image.src = './1.jpeg'
+    image.onload = function(){
+      console.log(image.width)
+      console.log(image.height)
+    }
+    console.log('=======')
+  })
+  SanYueWebApp.sub('ViewShow', function (res) {
+    console.log('ViewShow')
+    console.log(res)
+    console.log('=======')
+  })
+  SanYueWebApp.sub('ViewHide', function () {
+    console.log('ViewHide')
+  })
+  SanYueWebApp.sub('AppToActive', function () {
+    console.log('AppToActive')
+  })
+  SanYueWebApp.sub('AppToBackGround', function () {
+    console.log('AppToBackGround')
+  })
+  SanYueWebApp.sub('SceneMode', function (res) {
+    console.log('SceneMode', res)
+  })
+  SanYueWebApp.sub('SceneMode', function (res) {
+    console.log('SceneMode', res)
+  })
+  SanYueWebApp.sub('NetworkType', function (res) {
+    console.log(SanYueWebApp.NETWORLTYPES[res.result])
+  })
+
+  SanYueWebApp.getNetworkType(function (res) {
+    console.log(SanYueWebApp.NETWORLTYPES[res.result])
+  }, function (err) {
+
+  })
+
+  document.getElementById('nav').onclick = function () {
+    // SanYueWebApp.navPush({
+    //   name: 'push',
+    //   extra: {
+    //     a: [],
+    //     b: 'xas'
+    //   }
+    // }, function (res) { }, function (err) {
+    //   SanYueWebApp.showToast({
+    //     content: err.err
+    //   })
+    // })
+    //window.location.href = 'https://www.baidu.com'
+    // console.log(window.location.href)
+  }
+
+  window.onerror = function (message, source, lineno, colno, error) {
+    console.log(message)
+    console.log(source)
+    console.log(lineno)
+  }
+</script>
+
+</html>
