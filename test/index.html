@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi,viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- app config -->
   <meta class="sanyueApp" name="hideNav" content="0">
@@ -63,12 +64,15 @@
   <div id="isInApp"></div>
   <div id="device"></div>
   <div id="version"></div>
-  <div style="margin-bottom: 10px;background-color:#f1f2f1" id='showActionSheet'>showActionSheet</div>
   <h1>Pick</h1>
+  <img style="width: 100%;"
+    src='webps://user-gold-cdn.xitu.io/2016/11/29/f840a2b681a517ee48299eb84bcc5f9c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1'>
+  <img style="width: 100%;" src='webps://pic.brushes8.com/uploads/2013/06/453656.webp' />
   <img src="1.jpeg" />
+  <img src="1.webp" />
   <div style="margin: 30px;margin-bottom: 10px;" id="pickResult"></div>
   <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='normalPicker'>normalPick</div>
-  <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='multiPick'>multiPick</div>
+  <!-- <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='multiPick'>multiPick</div> -->
   <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='timePicker'>timePicker</div>
   <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='datePicker'>datePicker</div>
   <div style="margin: 30px;margin-bottom: 10px;" id="vibrateLong">vibrateLong</div>
@@ -79,6 +83,7 @@
   <div style="margin-bottom: 10px;background-color:#f1f2f1" id='toast'>toast</div>
   <div style="margin-bottom: 10px;background-color:#f1f2f1" id='showLoad'>showLoad</div>
   <div style="margin-bottom: 10px;background-color:#f1f2f1" id='showModal'>showModal</div>
+  <div style="margin-bottom: 10px;background-color:#f1f2f1" id='showActionSheet'>showActionSheet</div>
   <div style="margin-bottom: 10px;background-color:#f1f2f1" id='setStatusStyle'>setStatusStyle</div>
   <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='setNavBar'>setNavBar</div>
   <h1>网络请求</h1>
@@ -91,7 +96,6 @@
   <div style="height: 30px;margin-bottom: 10px;background-color:#f1f2f1" id='patch'>PATCH</div>
   <a style="margin-left: 20px;" href="#12">1233</a>
   <a style="margin-left: 20px;" href="https://www.baidu.com">1233</a>
-  <img style="width: 100%;" src='http://images.xiaozhuanlan.com/photo/2018/f7d0fe8dfa55b83af98bbf66bfbcbefa.png'>
 </body>
 <script>
   // test 
@@ -147,7 +151,7 @@
   }
   document.getElementById('showModal').onclick = function () {
     SanYueWebApp.showModal({
-      title:"长标题长标题长标题长标题长标题长标题",
+      title: "长标题长标题长标题长标题长标题长标题",
       content: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈",
       showCancel: true,
       backGroundCancel: true,
@@ -165,7 +169,7 @@
       SanYueWebApp.showActionSheet({
         backGroundCancel: true,
         // senseMode:'dark',
-        // title:"这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。",
+        title: "这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。这是一个标题，可以为一行或者两行。",
         itemList: ['第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个第一个', '第二个', '第三个', '第四个', '第五个', '第六个']
       }, function (res) {
         console.log(res)
@@ -197,12 +201,14 @@
       flag1 = true;
     }
   }
-  var selectIndex = 0
+  var selectIndex = 4
   document.getElementById('normalPicker').onclick = function () {
     var arr = ['第一个', '第二个', '第三个', '第四个', '第五个', '第六个', '第七个', '第八个', '第九个', '第十个', '第十一个', '第十一个', '第十一个']
     SanYueWebApp.showPick({
       mode: 'normal',
+      backGroundCancel: true,
       listenChange: true,
+      // senseMode:'light',
       list: arr,
       value: selectIndex,
     }, function (res) {
@@ -224,91 +230,102 @@
       console.log(err)
     })
   }
-  document.getElementById('multiPick').onclick = function () {
-    var arr = [
-      {
-        name: '1',
-        children: [
-          {
-            name: '1-1', children: [
-              { name: '1-1-1', children: [] },
-              { name: '1-1-2', children: [] },
-              { name: '1-1-3', children: [] },
-            ]
-          },
-          {
-            name: '1-2', children: [
-              { name: '1-2-1', children: [] },
-              { name: '1-2-2', children: [] },
-              { name: '1-2-3', children: [] },
-            ]
-          },
-          {
-            name: '1-3', children: [
-              { name: '3-2-1', children: [] },
-              { name: '3-2-2', children: [] },
-              { name: '3-2-3', children: [] },
-            ]
-          },
-        ]
-      },
-      {
-        name: '2',
-        children: [
-          { name: '2-1', children: [] },
-          { name: '2-2', children: [] },
-          { name: '2-3', children: [] },
-        ]
-      },
-      {
-        name: '3',
-        children: [
-          { name: '3-1', children: [] },
-          { name: '3-2', children: [] },
-          { name: '3-3', children: [] },
-        ]
-      },
-      {
-        name: '4',
-        children: [
-          { name: '4-1', children: [] },
-          { name: '4-2', children: [] },
-          { name: '4-3', children: [] },
-        ]
-      },
-    ]
-    SanYueWebApp.showPick({
-      mode: 'multi',
-      listenChange: true,
-      list: arr,
-      senseMode: 'dark',
-      value: [0, 0, 0],
-    }, function (res) {
-      var index = Number(res.result)
-      if (index === -1) {
-        document.getElementById('pickResult').innerHTML = '没有选择'
-        selectIndex = 0
-      }
-      else if (index === -2) {
-        document.getElementById('pickResult').innerHTML = 'mask 取消'
-        selectIndex = 0
-      }
-      else {
-        selectIndex = index
-        document.getElementById('pickResult').innerHTML = JSON.stringify(res.result)
-      }
-      console.log(res)
-    }, function (err) {
-      console.log(err)
-    })
-  }
+  // document.getElementById('multiPick').onclick = function () {
+  //   var arr = [
+  //     {
+  //       name: 0,
+  //       children: [
+  //         { name: '0-1', children: [] },
+  //       ]
+  //     },
+  //     {
+  //       name: '1',
+  //       children: [
+  //         {
+  //           name: '1-1', children: [
+  //             {
+  //               name: '1-1-1', children: [
+  //                 { name: '1-1-1-1', children: [] }
+  //               ]
+  //             },
+  //             { name: '1-1-2', children: [] },
+  //             { name: '1-1-3', children: [] },
+  //           ]
+  //         },
+  //         {
+  //           name: '1-2', children: [
+  //             { name: '1-2-1', children: [] },
+  //             { name: '1-2-2', children: [] },
+  //             { name: '1-2-3', children: [] },
+  //           ]
+  //         },
+  //         {
+  //           name: '1-3', children: [
+  //             { name: '3-2-1', children: [] },
+  //             { name: '3-2-2', children: [] },
+  //             { name: '3-2-3', children: [] },
+  //           ]
+  //         },
+  //       ]
+  //     },
+  //     {
+  //       name: '2',
+  //       children: [
+  //         { name: '2-1', children: [] },
+  //         { name: '2-2', children: [] },
+  //         { name: '2-3', children: [] },
+  //       ]
+  //     },
+  //     {
+  //       name: '3',
+  //       children: [
+  //         { name: '3-1', children: [] },
+  //         { name: '3-2', children: [] },
+  //         { name: '3-3', children: [] },
+  //       ]
+  //     },
+  //     {
+  //       name: '4',
+  //       children: [
+  //         { name: '4-1', children: [] },
+  //         { name: '4-2', children: [] },
+  //         { name: '4-3', children: [] },
+  //       ]
+  //     },
+  //   ]
+  //   SanYueWebApp.showPick({
+  //     mode: 'multi',
+  //     listenChange: true,
+  //     list: arr,
+  //     senseMode: 'dark',
+  //     value: [0, 0, 0],
+  //   }, function (res) {
+  //     var index = Number(res.result)
+  //     if (index === -1) {
+  //       document.getElementById('pickResult').innerHTML = '没有选择'
+  //       selectIndex = 0
+  //     }
+  //     else if (index === -2) {
+  //       document.getElementById('pickResult').innerHTML = 'mask 取消'
+  //       selectIndex = 0
+  //     }
+  //     else {
+  //       selectIndex = index
+  //       document.getElementById('pickResult').innerHTML = JSON.stringify(res.result)
+  //     }
+  //     console.log(res)
+  //   }, function (err) {
+  //     console.log(err)
+  //   })
+  // }
   document.getElementById('timePicker').onclick = function () {
     SanYueWebApp.showPick({
       mode: 'time',
       listenChange: true,
-      start: "09:00",
+      start: "09:10",
       end: '10:00',
       value: "09:11",
+      senseMode: 'light'
     }, function (res) {
       document.getElementById('pickResult').innerHTML = JSON.stringify(res)
     }, function (err) {
@@ -319,9 +336,9 @@
     SanYueWebApp.showPick({
       mode: 'date',
       listenChange: true,
-      start: "2012-01-01",
-      end: '2012-12-31',
-      value: "2012-01-01",
+      start: "2012-6-01",
+      end: '2015-06-30',
+      value: "2013-01-01",
     }, function (res) {
       document.getElementById('pickResult').innerHTML = JSON.stringify(res)
     }, function (err) {
@@ -464,19 +481,24 @@
       showCancel: false,
       backGroundCancel: false,
     }, function (res) {
-      SanYueWebApp.restart()
+      SanYueWebApp.restart({ clearCache: false })
     }, function (err) {
 
     })
-
   }
+
+  SanYueWebApp.aboutList({
+    backGroundCancel: true,
+    title: '版本号：0.01',
+    itemList: ['重启']
+  })
 
   SanYueWebApp.sub('ViewInit', function (res) {
     console.log('ViewInit')
     console.log(res)
     const image = new Image()
     image.src = './1.jpeg'
-    image.onload = function(){
+    image.onload = function () {
       console.log(image.width)
       console.log(image.height)
     }
@@ -505,6 +527,17 @@
   SanYueWebApp.sub('NetworkType', function (res) {
     console.log(SanYueWebApp.NETWORLTYPES[res.result])
   })
+  SanYueWebApp.sub('AboutListSelect', function (res) {
+    console.log(res)
+    switch (res.index) {
+      case -1: {
+
+      }
+      case 0: {
+        SanYueWebApp.restart({ clearCache: false })
+      }
+    }
+  })
 
   SanYueWebApp.getNetworkType(function (res) {
     console.log(SanYueWebApp.NETWORLTYPES[res.result])
@@ -513,17 +546,17 @@
   })
 
   document.getElementById('nav').onclick = function () {
-    // SanYueWebApp.navPush({
-    //   name: 'push',
-    //   extra: {
-    //     a: [],
-    //     b: 'xas'
-    //   }
-    // }, function (res) { }, function (err) {
-    //   SanYueWebApp.showToast({
-    //     content: err.err
-    //   })
-    // })
+    SanYueWebApp.navPush({
+      name: 'push',
+      extra: {
+        a: [],
+        b: 'xas'
+      }
+    }, function (res) { }, function (err) {
+      SanYueWebApp.showToast({
+        content: err.err
+      })
+    })
     //window.location.href = 'https://www.baidu.com'
     // console.log(window.location.href)
   }

@@ -14,6 +14,7 @@ var SanYueWebApp = {
     'ViewHide',
     'NetworkType',
     'SceneMode',
+    'AboutListSelect'
   ],
   NETWORLTYPES: [
     'NONE',
@@ -138,7 +139,7 @@ var SanYueWebApp = {
     var title = obj.title || ''
     var backGroundCancel = obj.backGroundCancel === undefined ? false : obj.backGroundCancel
     var itemColor = obj.itemColor || '#353535'
-    var cancelColor = '#e64340'
+    var cancelColor = obj.cancelColor || '#e64340'
     var cancelText = obj.cancelText || '取消'
     var senseMode = obj.senseMode || 'auto' // auto , dark ，light
     var cancelColorDark = obj.cancelColorDark || '#CD5C5C'
@@ -174,7 +175,7 @@ var SanYueWebApp = {
       fail('无效参数')
       return
     }
-    var backGroundCancel = obj.backGroundCancel === undefined ? false : obj.backGroundCancel
+    var backGroundCancel = obj.backGroundCancel === undefined ? true : obj.backGroundCancel
     var mode = obj.mode
     var listenChange = obj.listenChange === undefined ? false : obj.listenChange
     var senseMode = obj.senseMode || 'auto' // auto , dark ，light
@@ -208,13 +209,14 @@ var SanYueWebApp = {
       case 'time': {
         var start = obj.start || '00:00'
         var end = obj.end || '23:59'
-        var value = obj.value || '00:00'
+        var value = obj.value || obj.start
         data = {
           mode: "time",
           listenChange: listenChange,
           start: start,
           end: end,
           value: value,
+          senseMode: senseMode,
           backGroundCancel: backGroundCancel,
         }
         break;
@@ -229,6 +231,7 @@ var SanYueWebApp = {
           start: start,
           end: end,
           value: value,
+          senseMode: senseMode,
           backGroundCancel: backGroundCancel,
         }
         break;
@@ -292,8 +295,32 @@ var SanYueWebApp = {
     }
     this.addCallBack('SanYue_navReplace', data, success, fail)
   },
-  restart: function () {
-    this.addCallBack("SanYue_restart", null, null, null);
+  restart: function (obj) {
+    const clearCache = obj.clearCache === undefined ? false : obj.clearCache
+    this.addCallBack("SanYue_restart", {
+      clearCache
+    }, null, null);
+  },
+  aboutList: function (obj, success, fail) {
+    var backGroundCancel = obj.backGroundCancel === undefined ? false : obj.backGroundCancel
+    var itemColor = obj.itemColor || '#353535'
+    var cancelColor = obj.cancelColor || '#e64340'
+    var cancelText = obj.cancelText || '取消'
+    var senseMode = obj.senseMode || 'auto' // auto , dark ，light
+    var cancelColorDark = obj.cancelColorDark || '#CD5C5C'
+    var itemColorDark = obj.confirmColorDark || '#BBBBBB'
+    var data = {
+      title: '',
+      itemColor: itemColor,
+      cancelColor: cancelColor,
+      cancelText: cancelText,
+      itemList: obj.itemList || [],
+      senseMode: senseMode,
+      cancelColorDark: cancelColorDark,
+      backGroundCancel: backGroundCancel,
+      itemColorDark: itemColorDark,
+    }
+    this.addCallBack('SanYue_aboutList', data, null, null)
   },
   // help
   fetchStop: function (obj) {
